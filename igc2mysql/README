@@ -1,0 +1,19 @@
+archive/ the beginning of all the development that someone else has made towards
+	opening up an igc file in perl
+
+tar xvf archive/Alleg-1.003.tar.gz
+cd Alleg-1.003/
+sudo -s
+perl Makefile.PL
+sudo apt-get install libclone-perl
+sudo perl -MCPAN -eshell
+cpan> install enum
+perl Makefile.PL
+make
+make install
+
+rm -rf Alleg-1.003/
+
+tar xvf archive/soapyigc.alpha.0.2.tar.gz
+
+obtain a core file (igc)

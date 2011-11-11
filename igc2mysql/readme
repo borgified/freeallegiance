@@ -1,0 +1,6 @@
+There is a new schema file to deal with not being able to store the decimal values correctly with the old schema. It still needs work to reduce some wasted storage.
+
+igc2obj.pl prints out the faction related information of an IGC file.
+
+igc2mysql.pl will read in the faction information from an IGC file via pICE and write the results to a mySQL database. You need to set up the database user/and password by editing the file.
+

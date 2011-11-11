@@ -1,0 +1,6 @@
+<form method="POST">
+Enter your callsign: <input name="callsign"><br>
+<input type="radio" name="choice" value="master">I seek a Master<br>
+<input type="radio" name="choice" value="apprentice">I seek an Apprentice<br>
+<input type="submit">
+</form>
