@@ -32,10 +32,22 @@ get '/seek_master/:callsign' => sub {
         $result{$$a{timestamp}}=$$a{players};
     }
     
+    my %freq;
+    
     foreach my $timestamp (keys %result) {
-        if($result{$timestamp} =~ /$callsign\@?\w*\((\d+)\)/i){
-            print "found $1 $timestamp $result{$timestamp}\n";
+#        if($result{$timestamp} =~ /$callsign\@?\w*\((\d+)\)/i){
+         if($result{$timestamp} =~ /$callsign\@?\w*/i){
+             $timestamp=~/\d (\d\d):/;
+             if(!exists($freq{$1})){
+                 $freq{$1}=1;
+             }else{
+                 $freq{$1}=$freq{$1} + 1;
+             }
+            #print "found $1 $timestamp $result{$timestamp}\n";
         }
+    }
+    foreach my $hour (sort keys %freq){
+        print "hour: $hour freq: $freq{$hour}\n";
     }
     undef(%result);
     template 'master', {callsign => params->{callsign}, data=>\%result};

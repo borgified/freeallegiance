@@ -1,6 +1,5 @@
+look up player online patterns
 <form method="POST">
-Enter your callsign: <input name="callsign"><br>
-<input type="radio" name="choice" value="master">I seek a Master<br>
-<input type="radio" name="choice" value="apprentice">I seek an Apprentice<br>
+enter two or more callsigns (separated by a space): <input name="callsign"><br>
 <input type="submit">
 </form>
