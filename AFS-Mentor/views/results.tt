@@ -4,12 +4,10 @@ function changeContent() {
 	var x=document.getElementById('hour (UTC)').rows[0].cells;
 	var y=document.getElementById('mytimezone').value;
 
-	if(y>0){
+	if(y>=0){
 		x[0].innerHTML="UTC+"+Number(y);
-	}else if((y == undefined)||(y ==0)){
-		window.location.reload();
 	}else{
-		x[0].innerHTML="UTC"+Number(y);
+		x[0].innerHTML="UTC"+y;
 	}
 
 	for(i=0;i<24;i++){
@@ -30,15 +28,23 @@ function changeContent() {
 		}
 	}
 }
+
+function checkTimezone() {
+	var a = document.getElementById('mytimezone').value;
+	if(a > 12 || a < -12) {
+		alert("expecting value between -12 to 12, inclusive. Reset to start over.");
+		document.getElementById('mytimezone').value='';
+	}
+}
 </script>
 </head>
 <body>
 <a href="http://spathiwa.com"><img src="http://spathiwa.com/img/spathi.gif"></a>
 <br>
-<input type="button" onclick="changeContent();" onchange="window.location.reload();" value="Change Timezone">
-<input type="text" id="mytimezone"> (ex. enter -8 for UTC-8, for US/Pacific timezone)
+<input type="button" id="abutton" onclick="checkTimezone();document.getElementById('abutton').disabled=true;changeContent();" value="Change Timezone">
+<input type="text" id="mytimezone"> (ex. enter -8 for UTC-8, for US/Pacific timezone) <a href="http://worldtimezone.net">find your timezone</a>
 <br>
-<input type="button" onclick="window.location.reload()" value="Reset">
+<input type="button" onclick="document.getElementById('abutton').disabled=false;document.getElementById('mytimezone').value='';window.location.reload();" value="Reset">
 <table border="1">
 <% foreach x in results.keys.nsort %>
 	<td>
