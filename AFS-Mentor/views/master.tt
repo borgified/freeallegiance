@@ -1,4 +1,0 @@
-<table border="1">
-<% FOREACH callsign IN output.keys %>
-<tr><td><% output.$callsign %></td></tr>
-<% END %>
