@@ -1,0 +1,3 @@
+<% FOREACH callsign IN output.keys %>
+<% output.$callsign.freq.keys %>
+<% END %>

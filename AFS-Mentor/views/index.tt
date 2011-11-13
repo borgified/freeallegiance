@@ -1,5 +1,5 @@
 look up player online patterns
 <form method="POST">
-enter two or more callsigns (separated by a space): <input name="callsign"><br>
+enter two or more callsigns (separated by a space): <input name="callsigns"><br>
 <input type="submit">
 </form>

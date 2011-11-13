@@ -1,5 +1,4 @@
-<% callsign %>, you may seek guidance from these JediMasters
 <table border="1">
-<% FOREACH a IN data.keys %>
-<tr><td><% data.$a %></td></tr>
+<% FOREACH callsign IN output.keys %>
+<tr><td><% output.$callsign %></td></tr>
 <% END %>
