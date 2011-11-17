@@ -1,0 +1,12 @@
+<table border="1">
+<% foreach x in results.keys.nsort %>
+	<td>
+	<table border="1">
+	<tr><th><% results.$x.callsign %></th></tr>
+	<% foreach y in results.$x.freq.keys.nsort %>
+		<tr><td><% results.$x.freq.$y %></td></tr>
+	<% end %>
+	</table>
+	</td>
+<% end %>
+</table>
