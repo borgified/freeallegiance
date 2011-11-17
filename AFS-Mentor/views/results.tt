@@ -1,3 +1,5 @@
+<a href="http://spathiwa.com"><img src="http://spathiwa.com/img/spathi.gif"></a>
+<br>
 <table border="1">
 <% foreach x in results.keys.nsort %>
 	<td>
