@@ -11,7 +11,7 @@ get '/' => sub {
 post '/' => sub {
     
     my $callsigns=params->{callsigns};
-    my $ok_chars = 'a-zA-Z0-9 ,-';   
+    my $ok_chars = 'a-zA-Z0-9 -_';   
     $callsigns =~ s/[^$ok_chars]//go;
     my $data=database->prepare('select timestamp,players from currentplayers where timestamp > date_sub(now(),interval 1 month)');
     $data->execute();
@@ -52,7 +52,7 @@ post '/' => sub {
         }
      
         foreach my $timestamp (keys %db) {
-            if($db{$timestamp} =~ /$callsign/i){
+            if($db{$timestamp} =~ /\b$callsign\b/i){
                 $timestamp=~/\d (\d\d):/;
                 $freq{$1}=$freq{$1} + 1;
             }
