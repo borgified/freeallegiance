@@ -1,7 +1,6 @@
 package AFS::Mentor;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
-use Data::Dumper;
 
 our $VERSION = '0.1';
 
@@ -24,17 +23,22 @@ post '/' => sub {
     my $output;
     my $i=0;
 
-    print "<table border='1'>";
-    print "<td><table border='1'>";
-    print "<tr><td>hour (UTC)</td></tr>";
+    my $x=0;
+    my %results;
+    my %freqq;
+
     foreach my $hour (0..23){
         if($hour=~/\b\d\b/){
             $hour="0".$hour;
         }
-        print "<tr><td>$hour</td></tr>";            
+        $freqq{$hour}=$hour;
     }
-    print "</table></td>";
-
+   
+    $results{$x++} = {
+            callsign => "hour (UTC)",
+            freq     => \%freqq,
+        };
+    
     foreach my $callsign (split/ /,$callsigns){
         my %freq;
         
@@ -46,26 +50,20 @@ post '/' => sub {
             }
             $freq{$hour}=0;
         }
-
-        
-        print "<td>";
-        print "<table border='1'>";
-        print "<tr><th>$callsign</th></tr>";
-        
+     
         foreach my $timestamp (keys %result) {
             if($result{$timestamp} =~ /$callsign\@?\w*/i){
                 $timestamp=~/\d (\d\d):/;
                 $freq{$1}=$freq{$1} + 1;
             }
         }
-        foreach my $hour (sort keys %freq){
-            print "<tr><td>$freq{$hour}</td></tr>";
-        }
-        print "</table></td>";
-   
+
+        $results{$x++} = {
+            callsign => $callsign,
+            freq     => \%freq,
+        };
     }
-    print "</table>";
-   
+    template 'results', { results => \%results };
 };
 
 true;
