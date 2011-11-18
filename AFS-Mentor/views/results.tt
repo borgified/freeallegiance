@@ -1,14 +1,54 @@
+<head>
+<script type="text/javascript">
+function changeContent() {
+	var x=document.getElementById('hour (UTC)').rows[0].cells;
+	var y=document.getElementById('mytimezone').value;
+
+	if(y>0){
+		x[0].innerHTML="UTC+"+Number(y);
+	}else if((y == undefined)||(y ==0)){
+		window.location.reload();
+	}else{
+		x[0].innerHTML="UTC"+Number(y);
+	}
+
+	for(i=0;i<24;i++){
+		var label;
+		if(i<10){
+			label="hour (UTC)0"+i;
+		}else{
+			label="hour (UTC)"+i;
+		}
+
+		var a = Number(document.getElementById(label).innerHTML)+Number(y);
+		if(a < 0){
+			document.getElementById('hour (UTC)').rows[i+1].cells[0].innerHTML=a+24;
+		}else if(a > 23){
+			document.getElementById('hour (UTC)').rows[i+1].cells[0].innerHTML=a-24;
+		}else{
+			document.getElementById('hour (UTC)').rows[i+1].cells[0].innerHTML=a;
+		}
+	}
+}
+</script>
+</head>
+<body>
 <a href="http://spathiwa.com"><img src="http://spathiwa.com/img/spathi.gif"></a>
 <br>
+<input type="button" onclick="changeContent();" onchange="window.location.reload();" value="Change Timezone">
+<input type="text" id="mytimezone"> (ex. enter -8 for UTC-8, for US/Pacific timezone)
+<br>
+<input type="button" onclick="window.location.reload()" value="Reset">
 <table border="1">
 <% foreach x in results.keys.nsort %>
 	<td>
-	<table border="1">
+	<table id="<% results.$x.callsign %>" border="1">
 	<tr><th><% results.$x.callsign %></th></tr>
 	<% foreach y in results.$x.freq.keys.nsort %>
-		<tr><td><% results.$x.freq.$y %></td></tr>
+		<tr><td id="<%results.$x.callsign%><%y%>"><% results.$x.freq.$y %></td></tr>
 	<% end %>
 	</table>
 	</td>
 <% end %>
 </table>
+</body>
