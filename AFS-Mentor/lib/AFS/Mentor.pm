@@ -11,8 +11,7 @@ get '/' => sub {
 post '/' => sub {
     
     my $callsigns=params->{callsigns};
-    my $ok_chars = 'a-zA-Z0-9 -_';   
-    $callsigns =~ s/[^$ok_chars]//go;
+    $callsigns =~ s/[^A-Za-z0-9 \-\_\,]*//go;
     my $data=database->prepare('select timestamp,players from currentplayers where timestamp > date_sub(now(),interval 1 month)');
     $data->execute();
     my %db;
@@ -39,7 +38,7 @@ post '/' => sub {
             freq     => \%freqq,
         };
     
-    foreach my $callsign (split/ /,$callsigns){
+    foreach my $callsign (split/\s+\,|\,\s+|\,|\s+/,$callsigns){
         my %freq;
         
         #initialize %freq
